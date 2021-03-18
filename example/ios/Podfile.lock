@@ -1,0 +1,22 @@
+PODS:
+  - Flutter (1.0.0)
+  - icloud_availability (0.0.1):
+    - Flutter
+
+DEPENDENCIES:
+  - Flutter (from `Flutter`)
+  - icloud_availability (from `.symlinks/plugins/icloud_availability/ios`)
+
+EXTERNAL SOURCES:
+  Flutter:
+    :path: Flutter
+  icloud_availability:
+    :path: ".symlinks/plugins/icloud_availability/ios"
+
+SPEC CHECKSUMS:
+  Flutter: 434fef37c0980e73bb6479ef766c45957d4b510c
+  icloud_availability: 010b557f9807ebc450fe3a66636b046c0873cc37
+
+PODFILE CHECKSUM: aafe91acc616949ddb318b77800a7f51bffa2a4c
+
+COCOAPODS: 1.10.1
