@@ -13,10 +13,10 @@ void main() {
       return true;
     });
     eventChannel.setMockMethodCallHandler((MethodCall methodCall) async {
-      ServicesBinding.instance.defaultBinaryMessenger.handlePlatformMessage(
+      ServicesBinding.instance!.defaultBinaryMessenger.handlePlatformMessage(
           "icloud_availability/event",
           const StandardMethodCodec().encodeSuccessEnvelope(true),
-          (ByteData data) {});
+          (ByteData? data) {});
     });
   });
 
