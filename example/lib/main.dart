@@ -7,7 +7,14 @@ void main() {
   runApp(MyApp());
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
+  @override
+  _MyAppState createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  StreamSubscription subscription;
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -20,11 +27,16 @@ class MyApp extends StatelessWidget {
             children: [
               TextButton(
                 child: Text('Check Availability'),
-                onPressed: () => ICloudAvailability.available,
+                onPressed: () => print(
+                    '--- Watch Available --- value: ${ICloudAvailability.available}'),
               ),
               TextButton(
                 child: Text('Watch Availability'),
                 onPressed: testWatchAvailability,
+              ),
+              TextButton(
+                child: Text('Cancel Watch Availability'),
+                onPressed: cancelWatchAvailability,
               ),
             ],
           ),
@@ -34,14 +46,14 @@ class MyApp extends StatelessWidget {
   }
 
   Future<void> testWatchAvailability() async {
-    final fileListStream = await ICloudAvailability.watchAvailability();
-    final fileListSubscription = fileListStream.listen((available) {
+    final stream = await ICloudAvailability.watchAvailability();
+    subscription = stream.listen((available) {
       print('--- Watch Available --- value: $available');
     });
+  }
 
-    Future.delayed(Duration(seconds: 10), () {
-      fileListSubscription.cancel();
-      print('--- Watch Available --- canceled');
-    });
+  cancelWatchAvailability() {
+    subscription?.cancel();
+    print('--- Watch Available --- canceled');
   }
 }
