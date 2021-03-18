@@ -1,58 +1,47 @@
-import 'package:flutter/material.dart';
 import 'dart:async';
 
-import 'package:flutter/services.dart';
+import 'package:flutter/material.dart';
 import 'package:icloud_availability/icloud_availability.dart';
 
 void main() {
   runApp(MyApp());
 }
 
-class MyApp extends StatefulWidget {
-  @override
-  _MyAppState createState() => _MyAppState();
-}
-
-class _MyAppState extends State<MyApp> {
-  String _platformVersion = 'Unknown';
-
-  @override
-  void initState() {
-    super.initState();
-    initPlatformState();
-  }
-
-  // Platform messages are asynchronous, so we initialize in an async method.
-  Future<void> initPlatformState() async {
-    String platformVersion;
-    // Platform messages may fail, so we use a try/catch PlatformException.
-    try {
-      platformVersion = await IcloudAvailability.platformVersion;
-    } on PlatformException {
-      platformVersion = 'Failed to get platform version.';
-    }
-
-    // If the widget was removed from the tree while the asynchronous platform
-    // message was in flight, we want to discard the reply rather than calling
-    // setState to update our non-existent appearance.
-    if (!mounted) return;
-
-    setState(() {
-      _platformVersion = platformVersion;
-    });
-  }
-
+class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
-          title: const Text('Plugin example app'),
+          title: const Text('icloud_availability plugin example app'),
         ),
         body: Center(
-          child: Text('Running on: $_platformVersion\n'),
+          child: Column(
+            children: [
+              TextButton(
+                child: Text('Check Availability'),
+                onPressed: () => ICloudAvailability.available,
+              ),
+              TextButton(
+                child: Text('Watch Availability'),
+                onPressed: testWatchAvailability,
+              ),
+            ],
+          ),
         ),
       ),
     );
+  }
+
+  Future<void> testWatchAvailability() async {
+    final fileListStream = await ICloudAvailability.watchAvailability();
+    final fileListSubscription = fileListStream.listen((available) {
+      print('--- Watch Available --- value: $available');
+    });
+
+    Future.delayed(Duration(seconds: 10), () {
+      fileListSubscription.cancel();
+      print('--- Watch Available --- canceled');
+    });
   }
 }

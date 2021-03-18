@@ -22,8 +22,8 @@ public class SwiftIcloudAvailabilityPlugin: NSObject, FlutterPlugin {
         switch call.method {
         case "isAvailable":
             isAvailable(call, result)
-        case "watchAvailable":
-            isAvailable(call, result)
+        case "watchAvailability":
+            watchAvailability(call, result)
         default:
             result(FlutterMethodNotImplemented)
         }
@@ -33,7 +33,7 @@ public class SwiftIcloudAvailabilityPlugin: NSObject, FlutterPlugin {
         result(FileManager.default.ubiquityIdentityToken != nil)
     }
     
-    private func watchAvailable(_ call: FlutterMethodCall, _ result: @escaping FlutterResult) {
+    private func watchAvailability(_ call: FlutterMethodCall, _ result: @escaping FlutterResult) {
         result(nil)
         streamHandler?.onCancelHandler = { [self] in
             removeObservers()

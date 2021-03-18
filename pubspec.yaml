@@ -1,7 +1,7 @@
 name: icloud_availability
 description: A flutter plugin to check iCloud availability.
 version: 0.0.1
-homepage:
+homepage: https://github.com/AlexBittermann/icloud_availability
 
 environment:
   sdk: ">=2.7.0 <3.0.0"
