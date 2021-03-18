@@ -27,8 +27,8 @@ class _MyAppState extends State<MyApp> {
             children: [
               TextButton(
                 child: Text('Check Availability'),
-                onPressed: () => print(
-                    '--- Watch Available --- value: ${ICloudAvailability.available}'),
+                onPressed: () async => print(
+                    '--- Watch Available --- value: ${await ICloudAvailability.available}'),
               ),
               TextButton(
                 child: Text('Watch Availability'),
