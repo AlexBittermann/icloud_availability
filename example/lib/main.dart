@@ -28,7 +28,7 @@ class _MyAppState extends State<MyApp> {
               TextButton(
                 child: Text('Check Availability'),
                 onPressed: () async => print(
-                    '--- Watch Available --- value: ${await ICloudAvailability.available}'),
+                    '--- Check Availability --- value: ${await ICloudAvailability.available}'),
               ),
               TextButton(
                 child: Text('Watch Availability'),
@@ -46,14 +46,15 @@ class _MyAppState extends State<MyApp> {
   }
 
   Future<void> testWatchAvailability() async {
+    print('--- Watch Availability --- start');
     final stream = await ICloudAvailability.watchAvailability();
     subscription = stream.listen((available) {
-      print('--- Watch Available --- value: $available');
+      print('--- Watch Availability --- value: $available');
     });
   }
 
   cancelWatchAvailability() {
     subscription?.cancel();
-    print('--- Watch Available --- canceled');
+    print('--- Watch Availability --- canceled');
   }
 }
